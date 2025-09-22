@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portfolio - Virtual Trading App</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #11998e, #38ef7d);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    header {
+      padding: 1rem 2rem;
+      background: rgba(0,0,0,0.3);
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    header a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.2rem;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+    }
+    header a:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+    main {
+      flex-grow: 1;
+      padding: 2rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: rgba(255,255,255,0.15);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+    th, td {
+      padding: 12px 15px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255,255,255,0.3);
+    }
+    th {
+      background-color: rgba(0,0,0,0.4);
+      font-weight: bold;
+    }
+    tr:last-child td {
+      border-bottom: none;
+    }
+    .empty {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 1.2rem;
+      font-style: italic;
+      color: rgba(255,255,255,0.8);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html">Home</a>
+    <a href="buy.html">Buy Stocks</a>
+    <a href="portfolio.html" style="background-color: rgba(255,255,255,0.2);">Portfolio</a>
+    <a href="sell.html">Sell Stocks</a>
+  </header>
+  <main>
+    <h2>Your Portfolio</h2>
+    <table id="portfolioTable">
+      <thead>
+        <tr>
+          <th>Stock Symbol</th>
+          <th>Quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Filled dynamically -->
+      </tbody>
+    </table>
+    <p id="emptyMessage" class="empty" style="display:none;">Your portfolio is empty.</p>
+  </main>
+
+  <script>
+    function loadPortfolio() {
+      const portfolio = JSON.parse(localStorage.getItem('portfolio') || '[]');
+      const tbody = document.querySelector('#portfolioTable tbody');
+      const emptyMessage = document.getElementById('emptyMessage');
+      tbody.innerHTML = '';
+      if (portfolio.length === 0) {
+        emptyMessage.style.display = 'block';
+        return;
+      }
+      emptyMessage.style.display = 'none';
+      portfolio.forEach(stock => {
+        const tr = document.createElement('tr');
+        const symbolTd = document.createElement('td');
+        symbolTd.textContent = stock.symbol;
+        const quantityTd = document.createElement('td');
+        quantityTd.textContent = stock.quantity;
+        tr.appendChild(symbolTd);
+        tr.appendChild(quantityTd);
+        tbody.appendChild(tr);
+      });
+    }
+
+    window.onload = loadPortfolio;
+  </script>
+</body>
+</html>

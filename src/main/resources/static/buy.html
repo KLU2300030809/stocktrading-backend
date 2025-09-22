@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Buy Stocks - Virtual Trading App</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #43cea2, #185a9d);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    header {
+      padding: 1rem 2rem;
+      background: rgba(0,0,0,0.3);
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    header a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.2rem;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+    }
+    header a:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+    main {
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 2rem;
+    }
+    .buy-container {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 2rem;
+      border-radius: 12px;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+    h2 {
+      margin-top: 0;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    label {
+      display: block;
+      margin: 1rem 0 0.5rem;
+      font-weight: bold;
+    }
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: 6px;
+      border: none;
+      font-size: 1rem;
+    }
+    button {
+      margin-top: 1.5rem;
+      width: 100%;
+      padding: 0.75rem;
+      font-size: 1.1rem;
+      font-weight: bold;
+      background-color: #28a745;
+      border: none;
+      border-radius: 25px;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html">Home</a>
+    <a href="buy.html" style="background-color: rgba(255,255,255,0.2);">Buy Stocks</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="sell.html">Sell Stocks</a>
+  </header>
+  <main>
+    <div class="buy-container">
+      <h2>Buy Stocks</h2>
+      <form id="buyForm">
+        <label for="symbol">Stock Symbol</label>
+        <input type="text" id="symbol" name="symbol" placeholder="e.g., AAPL" required />
+
+        <label for="quantity">Quantity</label>
+        <input type="number" id="quantity" name="quantity" min="1" required />
+
+        <button type="submit">Buy</button>
+      </form>
+      <p id="buyMessage" style="margin-top: 1rem;"></p>
+    </div>
+  </main>
+
+  <script>
+    document.getElementById('buyForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const symbol = e.target.symbol.value.trim().toUpperCase();
+      const quantity = parseInt(e.target.quantity.value, 10);
+      if (!symbol || quantity <= 0) {
+        alert('Please enter valid stock symbol and quantity.');
+        return;
+      }
+      // For demo: store in localStorage portfolio or call API
+      let portfolio = JSON.parse(localStorage.getItem('portfolio') || '[]');
+      const index = portfolio.findIndex(item => item.symbol === symbol);
+      if(index !== -1){
+        portfolio[index].quantity += quantity;
+      } else {
+        portfolio.push({ symbol, quantity });
+      }
+      localStorage.setItem('portfolio', JSON.stringify(portfolio));
+      document.getElementById('buyMessage').textContent = `${quantity} shares of ${symbol} added to portfolio!`;
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>

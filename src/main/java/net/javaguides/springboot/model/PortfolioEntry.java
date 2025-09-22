@@ -1,0 +1,39 @@
+package net.javaguides.springboot.model;
+
+public class PortfolioEntry {
+    private String symbol;
+    private int quantity;
+    private double avgPrice;
+
+    public PortfolioEntry() {}
+
+    public PortfolioEntry(String symbol, int quantity, double avgPrice) {
+        this.symbol = symbol;
+        this.quantity = quantity;
+        this.avgPrice = avgPrice;
+    }
+
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public double getAvgPrice() {
+        return avgPrice;
+    }
+
+    public void setAvgPrice(double avgPrice) {
+        this.avgPrice = avgPrice;
+    }
+}

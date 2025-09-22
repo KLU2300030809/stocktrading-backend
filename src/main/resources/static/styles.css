@@ -1,0 +1,104 @@
+/* Layout background */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+  color: #fff;
+  min-height: 100vh;
+}
+
+/* Navigation Bar */
+nav {
+  background-color: rgba(255, 255, 255, 0.05);
+  text-align: center;
+  padding: 15px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+nav a {
+  color: #00e6e6;
+  text-decoration: none;
+  margin: 0 20px;
+  font-size: 16px;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: #ffffff;
+}
+
+/* Headings */
+h1 {
+  text-align: center;
+  margin: 30px 0;
+  color: #ffffff;
+  font-size: 32px;
+}
+
+/* Forms */
+form {
+  max-width: 400px;
+  margin: 0 auto;
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  backdrop-filter: blur(8px);
+}
+
+form label {
+  display: block;
+  margin-bottom: 12px;
+  font-weight: bold;
+}
+
+form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 18px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ffffff10;
+  color: #fff;
+}
+
+form input::placeholder {
+  color: #ccc;
+}
+
+/* Buttons */
+button {
+  background-color: #00e6e6;
+  color: #000;
+  padding: 12px 20px;
+  border: none;
+  font-weight: bold;
+  font-size: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #00b3b3;
+}
+
+/* Output Box */
+pre, #result, #output {
+  max-width: 800px;
+  margin: 30px auto;
+  background-color: rgba(255, 255, 255, 0.08);
+  padding: 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  box-shadow: 0 0 10px rgba(0,0,0,0.25);
+}
+
+/* Center text if needed */
+.center {
+  text-align: center;
+}
