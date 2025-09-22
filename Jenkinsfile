@@ -1,4 +1,3 @@
-@"
 pipeline {
     agent any
 
@@ -44,4 +43,3 @@ pipeline {
         }
     }
 }
-"@ | Out-File -Encoding utf8 Jenkinsfile
