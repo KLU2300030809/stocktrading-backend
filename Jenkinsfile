@@ -2,42 +2,41 @@ pipeline {
     agent any
 
     environment {
-        GIT_REPO = 'https://github.com/KLU2300030809/stocktrading-backend.git'
-        APP_NAME = 'stocktrading-backend'
-        JAR_NAME = "${APP_NAME}.jar"
+        JAR_NAME = 'your-app.jar'  // Replace with your actual jar name
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: "${env.GIT_REPO}"
+                checkout scm
             }
         }
-
+        
         stage('Build') {
             steps {
-                sh 'mvn clean package -DskipTests'
+                // Run Maven build on Windows
+                bat 'mvn clean package -DskipTests'
             }
         }
 
         stage('Deploy') {
             steps {
-                sh '''
-                    if pgrep -f ${JAR_NAME}; then
-                        echo "Stopping existing app..."
-                        pkill -f ${JAR_NAME}
-                        sleep 5
-                    fi
+                // Example: stop previous app if running
+                bat '''
+                tasklist /FI "IMAGENAME eq java.exe" | find /I "java.exe"
+                if %ERRORLEVEL%==0 (
+                    taskkill /F /IM java.exe
+                    timeout /t 5
+                )
                 '''
-                sh "nohup java -jar target/${JAR_NAME} > app.log 2>&1 &"
+
+                // Run your jar file in the background and redirect output
+                bat "start /B java -jar target\\${JAR_NAME} > app.log 2>&1"
             }
         }
     }
-
+    
     post {
-        success {
-            echo 'Deployment successful!'
-        }
         failure {
             echo 'Build or deployment failed.'
         }
