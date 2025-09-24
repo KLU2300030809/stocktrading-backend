@@ -1,27 +1,27 @@
-name: Backend CI
+name: Java CI with Maven Wrapper
 
 on:
   push:
-    paths:
-      - '**'           # Run on any push to the repo, adjust if needed
+    branches: [main]
   pull_request:
-    paths:
-      - '**'           # Run on PRs, adjust if needed
+    branches: [main]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Give execute permission to mvnw
+      - name: Set execute permission for mvnw
         run: chmod +x ./mvnw
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
 
       - name: Build with Maven Wrapper
         run: ./mvnw clean install
-
-      # Optionally add test step if you want to run tests separately
-      # - name: Run tests
-      #   run: ./mvnw test
