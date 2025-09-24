@@ -3,23 +3,25 @@ name: Backend CI
 on:
   push:
     paths:
-      - '**'       # Or specify your relevant paths/files here
+      - '**'           # Run on any push to the repo, adjust if needed
   pull_request:
     paths:
-      - '**'
+      - '**'           # Run on PRs, adjust if needed
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      - name: Set up JDK 17  # Change if your project uses a different version
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'
-          java-version: '17'
+      - name: Give execute permission to mvnw
+        run: chmod +x ./mvnw
 
-      - name: Build with Maven
+      - name: Build with Maven Wrapper
         run: ./mvnw clean install
+
+      # Optionally add test step if you want to run tests separately
+      # - name: Run tests
+      #   run: ./mvnw test
